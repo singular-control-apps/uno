@@ -15,8 +15,8 @@
  * @param {object} controlNode The Control Node of the composition or
  *                 subcomosition for the fill-in form.
  *
- * NOTE: The composition or subcomposition used in @param "composition"
- *       should be the same one used in @param "controlNode".
+ * NOTE: The composition or subcomposition used in @param 'composition'
+ *       should be the same one used in @param 'controlNode'.
  */
 function createFillInForm(singularApp, composition, dom, controlNode) {
   singularApp.createSingularForm(window, dom, controlNode, function(msg) {
@@ -33,7 +33,7 @@ function createFillInForm(singularApp, composition, dom, controlNode) {
  * Returns true if the composition has a payload, where composition
  * global settings are stored.
  *
- * @param {object} composition The composition object.
+ * @param {object} composition The main composition object.
  * @returns {boolean} Returns true or false if composition has a control
  *                    node.
  */
@@ -79,7 +79,7 @@ function getOutput(singularApp) {
  * composition.
  *
  * @param {object} singularApp The reference to the Singular App SDK.
- * @param {object} composition The composition object.
+ * @param {object} composition The main composition object.
  * @returns {Array<object>} An array of subcompositions objects.
  */
 function getSubcompositionList(singularApp, composition) {
@@ -87,4 +87,18 @@ function getSubcompositionList(singularApp, composition) {
   return subcompositions.map(function(subcomp) {
     return composition.getSubcompositionById(subcomp.id)
   });
+}
+
+/**
+ * Play to the subcomposition animation state specified by 
+ * @param playToState
+ *
+ * @param subcompositionId The subcomposition ID
+ * @param composition The main composition object.
+ * @param playToState The state to animate subcomposition to.
+ *                    ie 'IN', 'OUT', etc.
+ */
+function playToSubcompositionById(subcompositionId, composition, playToState) {
+  const subcomp = composition.getSubcompositionById(subcompositionId);
+  subcomp.playTo(playToState);
 }

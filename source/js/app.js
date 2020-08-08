@@ -5,7 +5,7 @@ let singularApp;         // holds reference to the Singular App SDK library
 let output;              // output object
 let composition;         // composition object
 let subcompositionList;  // array of subcompositions objects from composition
-let tabIdNameList = [];  // array of subcomposition tab ID's
+let tabIdNameList = [];  // array of the tab IDs for the subcomposition tabs
 
 /**
  * Default function called by the Singular platform to provide access to the
@@ -14,61 +14,37 @@ let tabIdNameList = [];  // array of subcomposition tab ID's
  * NOTE: For local development usage, this function is defined in
  *       singularAppSDK_Local_Development.js
  *
- * @param {object} app
+ * @param {object} app Singular App SDK passed in (automatically) through app
+ *                 parameter.
  */
 function singularAppInit(app) {
   console.log('singularAppInit() Called.');
 
-  // define global variables
+  initializeSingularData(app);
+  initializeGUI(app);
+  logSingularData();
+}
+
+function initializeSingularData(app) {
   singularApp = app;
   output = getOutput(singularApp);
   composition = getComposition(singularApp);
   subcompositionList = getSubcompositionList(singularApp, composition);
-
-  // initialize the application
-  initializeGUI();
-
-  // information logging
-  console.log('Singular App SDK: ', app);
-  console.log('output: ', output);
-  console.log('composition: ', composition);
-  console.log('subcompositionList: ', subcompositionList);
-  console.log('tabIdNameList: ', tabIdNameList);
 }
 
-/**
- * Initialize GUI with Singular App SDK when DOM is fully loaded
- */
-function initializeGUI() {
+function initializeGUI(singularApp) {
   let init = function() {
-    // set output iframe src to output's preview url
-    document.getElementById("iframe").src = output.getPreviewUrl();
 
-    // if composition has global settings, create a global tab and set the global
-    // settings control node to be rendered for the fill-in form
-    let compositionToRender;
-    if (doesCompositionHaveAGlobalControlNode(composition)) {
-      createGlobalTab(composition, tabIdNameList);
-      compositionToRender = composition;
-    }
-    // if no global settings detected, set the first subcomposition listed to be
-    // rendered by the fill-in form
-    else {
-      compositionToRender = composition.getSubcompositionById(subcompositionList[0].id);
-    }
+    // set output iframe src to the singular app's output preview url
+    setIframeSrcToOutput('iframe', output);
 
-    // create fill-in form for either global control node if it exists or first subcomposition
-    const fillinFormDOM = document.getElementById("fillin-form");
-    createFillInForm(singularApp, compositionToRender, fillinFormDOM, compositionToRender.getControlNode());
+    // render fill-in form to edit subcomposition's payload
+    renderInitialFillInForm('fillin-form', singularApp, composition, subcompositionList);
 
     // create subcomposition tabs
+    createGlobalTab(composition, tabIdNameList);
     createSubcompTabs(subcompositionList, tabIdNameList);
-
-    // set first tab to active
-    if (tabIdNameList.length > 0) {
-      const firstTab = document.getElementById(tabIdNameList[0]);
-      firstTab.classList.add("tab--active");
-    }
+    setFirstTabToActive(tabIdNameList);
   };
 
   // wait for DOM to load first, then initialize GUI elements
@@ -82,16 +58,21 @@ function initializeGUI() {
 }
 
 function handleTabOnClick(subcomposition) {
-  const fillinFormDOM = document.getElementById("fillin-form");
-  createFillInForm(singularApp, subcomposition, fillinFormDOM, subcomposition.getControlNode());
+  renderFillInForm('fillin-form', singularApp, subcomposition);
 }
 
 function handlePlayOnClick(subcompId) {
-  const subcomp = composition.getSubcompositionById(subcompId);
-  subcomp.playTo("IN");
+  playToSubcompositionById(subcompId, composition, 'IN');
 }
 
 function handleStopOnClick(subcompId) {
-  const subcomp = composition.getSubcompositionById(subcompId);
-  subcomp.playTo("OUT");
+  playToSubcompositionById(subcompId, composition, 'OUT');
+}
+
+function logSingularData() {
+  console.log('Singular App SDK: ', singularApp);
+  console.log('output: ', output);
+  console.log('composition: ', composition);
+  console.log('subcompositionList: ', subcompositionList);
+  console.log('tabIdNameList: ', tabIdNameList);
 }
