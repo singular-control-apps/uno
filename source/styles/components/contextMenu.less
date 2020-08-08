@@ -1,0 +1,38 @@
+@contextPadding: 8px;
+@contextLineHeight: 22px;
+
+.contextMenu{
+    border: solid 1px @colorBorder;
+    background-color: @colorPanelBG;
+    display: inline-block;
+    width: 120px;
+    .bsShadow_drop (0, 3px, 6px, 0, @color: rgba(0, 0, 0, .15));
+    margin: 10px;
+
+    ul {
+        .bsNavReset();
+        width: 100%;
+
+        li{
+            box-sizing:border-box;
+            width: 100%;
+            display:block;
+            overflow: hidden;
+            white-space:nowrap;
+            text-overflow: ellipsis;
+            padding:0 @contextPadding;
+            font-size: @font_small_size;
+            line-height: @contextLineHeight;
+            .bsTransition(all);
+            transition-property:background-color, color;
+            .bsNoSelect();
+            cursor: pointer;
+
+            &:hover {
+                background-color: @colorTheme;
+                color: @colorText_invert;
+
+            }
+        }
+    }
+}

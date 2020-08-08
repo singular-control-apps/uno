@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>Uno</title>
+  <link rel="shortcut icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <!-- Load CSS Library -->
+  <link rel="stylesheet" href="styles/index.css">
+
+  <!-- Load Singular App SDK Library -->
+  <script src="https://app.singular.live/libs/singularapp/1.0.0/singularapp.js" ></script>
+  <!-- Load Firebase JavaScript Library (Required for Singular App SDK Library to run correctly) -->
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js" ></script>
+
+  <!-- Load Local Javascript Files -->
+  <script src="js/singularAppSDK_Util.js" ></script>
+  <script src="js/appHelper.js" ></script>
+  <script src="js/app.js" ></script>
+
+  <!-- Use only for local Singular App SDK Development -->
+  <!-- REMOVE or COMMENT OUT usage of singularAppSDK_Local_Development.js -->
+  <!-- when deploying app into Singular.live -->
+  <!-- DO NOT upload singularAppSDK_Local_Development.js into your repository!!! -->
+  <script src="js/singularAppSDK_Local_Development.js" ></script>
+</head>
+<html>
+<body style="display:none">
+<div class="page">
+  <div class="page-column">
+    <div class="panel panel-outputPlayer">
+      <div class="panel-tabs">
+        <div class="panel-tabs-list">
+          <div>
+            <span class="tab--active">Active</span>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="outputPlayer">
+          <div class="outputPlayer-playerWrapper">
+            <iframe class="outputPlayer-player" id="iframe"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-fill-in-form">
+      <div class="panel-tabs">
+        <div class="panel-tabs-list">
+          <div id="tabs">
+          </div>
+        </div>
+      </div>
+      <div class="fill-in-form" id="fillin-form"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

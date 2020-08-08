@@ -1,0 +1,165 @@
+.panel-active-overlay{
+    height:110px;
+    flex-shrink:0;
+    box-sizing:border-box;
+
+    .panel-body {
+        padding-top: 0;
+    }
+}
+
+.active-overlays{
+    display:flex;
+
+    .active-overlay{
+        width:120px;
+        height:95px;
+
+        margin-left: var(--sl-panel-padding);
+
+        &:first-child{
+            margin-left:0;
+        }
+
+        select{
+            width: 100%;
+            height: 35px;
+        }
+
+        &-button{
+            position:relative;
+            border-radius: var(--sl-border-rounding);
+            width: 120px;
+            height:60px;
+            box-sizing: border-box;
+            padding: 8px 10px;
+            overflow: hidden;
+
+            &:before {
+                content:'';
+                position:absolute;
+                display:block;
+                width:28px;
+                height: 24px;
+                top:50%;
+                left:50%;
+                transform: translate(-50%, -50%);
+                background-image: url("/images/singularLogo.svg");
+                background-repeat:no-repeat;
+                background-position: center;
+                background-size: 100%;
+                filter: brightness(0) saturate(100%) invert(0%) sepia(53%) saturate(10%) hue-rotate(130deg) brightness(112%) contrast(73%);
+                z-index:0;
+            }
+
+            &-label{
+                position:relative;
+                z-index:2;
+                display:none;
+                height:36px;
+                pointer-events:none;
+            }
+            &-progress{
+                position:relative;
+                z-index:2;
+                display:none;
+                pointer-events:none;
+                margin-top: 5px;
+                height:4px;
+                border-radius: 1px;
+                background-color: var(--sl-gray06);
+                overflow:hidden;
+            }
+        }
+
+        &-empty{
+            .active-overlay-button {
+                background-color: var(--sl-gray04);
+            }
+        }
+
+        &-active, &-active-timer, &-loaded, &-loaded-timer{
+            .active-overlay-button {
+                cursor:pointer;
+                box-shadow: 0px 2px 0px var(--sl-gray04);
+
+                &:before {
+                    display: none;
+                }
+                &-label {
+                    display: block;
+                }
+
+                &:after{
+                    content:'';
+                    position:absolute;
+                    display:block;
+                    top:0;
+                    left:0;
+                    width:100%;
+                    height:100%;
+                    background: transparent linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0) 89%, rgba(255, 255, 255, 0) 100%) 0% 0% no-repeat padding-box;
+                    z-index:1;
+                    opacity:0;
+                    .bsTransition(opacity);
+                }
+
+                &:hover{
+                    &:after {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        &-active-timer, &-loaded-timer{
+            .active-overlay-button {
+                &-progress {
+                    display: block;
+                }
+            }
+        }
+
+        &-loaded, &-loaded-timer{
+            .active-overlay-button {
+                background-color: var(--sl-gray05);
+
+                &-label {
+
+                }
+
+                &-progress {
+
+                }
+            }
+        }
+        &-active, &-active-timer{
+            .active-overlay-button {
+                background-color: var(--sl-gray06);
+
+                &-label {
+                    color: var(--sl-gray11);
+                }
+            }
+        }
+
+        &-active-timer{
+            .active-overlay-button {
+                &-progress {
+                    background-color: var(--sl-important);
+
+                    & > span {
+                        display:block;
+                        position:absolute;
+                        top:0;
+                        left:0;
+                        height:100%;
+                        background-color: var(--sl-gray11);
+                    }
+                }
+
+
+            }
+        }
+    }
+}

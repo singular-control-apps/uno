@@ -1,0 +1,75 @@
+:root {
+    /* Colors: */
+    --sl-fieldlist-label-width: 90px;
+    --sl-fieldlist-label-margin: 15px;
+    --sl-fieldlist-vert-margin: 20px;
+    --sl-fieldlist-label-color: var(--sl-gray08);
+}
+
+@fieldlist_label_width: 100px;
+@fieldlist_vertical_spacing: 5px;
+@colorFieldText: #707070;
+@responseCountWidth: 30%;
+@responsePercentWidth: 20%;
+
+.fieldlist{
+
+    & > div {
+        position: relative;
+        padding-left: ~"calc(var(--sl-fieldlist-label-width) + var(--sl-fieldlist-label-margin))";
+        margin-top: var(--sl-fieldlist-vert-margin);
+        display: flex;
+        align-items:center;
+        color: var(--sl-field-text);
+        .bsNoSelect();
+
+        label {
+            position:absolute;
+            left:0;
+            top:0;
+            width: var(--sl-fieldlist-label-width);
+            display:block;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+            line-height: var(--sl-field-height);
+            font-size: var(--sl-font-size-large);
+            font-weight: var(--sl-font-style-regular);
+            color: var(--sl-fieldlist-label-color);
+        }
+
+        textarea, select, input{
+            width: 100%;
+
+            &.autoWidth {
+                width: auto;
+            }
+        }
+
+        &:first-child {
+            margin-top:0;
+        }
+    }
+
+    // Divider
+    .fieldlist-divider{
+        display:none;
+        padding-left: 0;
+        height:1px;
+        background-color: @colorBorder;
+        margin: (@fieldlist_vertical_spacing * 3) 0;
+    }
+}
+
+.panel-fieldlist{
+    position:relative;
+    overflow:hidden;
+    .panel-body{
+        position:absolute;
+        top:50px;
+        width:100%;
+        bottom:0;
+        overflow-y: auto;
+        flex:none;
+    }
+}

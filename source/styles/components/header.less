@@ -1,0 +1,106 @@
+:root {
+    /* Colors: */
+    --sl-header-grad-top: var(--sl-gray02);
+    --sl-header-grad-bot: #161616;
+    --sl-header-divider-1: #1B1B1B;
+    --sl-header-divider-2: #333333;
+    --sl-header-divider-3: var(--sl-gray06);
+    --sl-header-divider-4: #161616;
+
+    /* Spacing / Sizing */
+    --sl-header-height: 50px;
+}
+
+.header-divider(@side: left){
+    content:'';
+    position:absolute;
+    display:block;
+    @{side}: 0;
+    top:0;
+    width:1px;
+    height:100%;
+    background: transparent linear-gradient(180deg, var(--sl-header-divider-1) 0%, var(--sl-header-divider-2) 34%, var(--sl-header-divider-3) 64%, var(--sl-header-divider-4) 100%) 0% 0% no-repeat padding-box;
+}
+
+header{
+    position: fixed;
+    box-sizing: border-box;
+    width:100%;
+    height: var(--sl-header-height);
+    background: transparent linear-gradient(180deg, var(--sl-header-grad-top) 0%, var(--sl-header-grad-bot) 100%) 0% 0% no-repeat padding-box;
+
+    padding: 0 var(--sl-panel-padding);
+    color: var(--sl-gray11);
+    font-size: var(--sl-font-size-large);
+    font-weight: var(--sl-font-style-bold);
+    line-height:1;
+    display:flex;
+    align-items: center;
+    z-index: 2;
+    .bsNoSelect();
+
+    .header-left{
+        display:flex;
+        align-items: center;
+
+        .header-logo{
+            background: transparent url("/images/singularLogo.svg") no-repeat;
+            background-size: 100%;
+            width:28px;
+            height:24px;
+            margin-right: var(--sl-panel-padding);
+        }
+        .header-title{
+            position:relative;
+            height:36px;
+            display: flex;
+            align-items: center;
+            padding-left: ~"calc(var(--sl-panel-padding) + 1px)";
+
+            &:before{
+                .header-divider();
+            }
+        }
+    }
+
+    .header-spacer{
+        .bsFlexSpacer();
+    }
+
+    .header-right{
+        display:flex;
+        align-items: center;
+
+        & > div {
+            display:flex;
+            align-items: center;
+
+            & > * {
+                margin:0 10px;
+            }
+
+            &.header-output-selector{
+                position:relative;
+                padding-right:10px;
+                margin-right:10px;
+                &:after{
+                    .header-divider(right);
+                }
+                &:first-child{
+                    margin-left:0;
+                }
+
+                select {
+                    min-width: 180px;
+                    margin-right: 5px;
+                }
+            }
+
+            &.header-help-config{
+                & > *:last-child{
+                    margin-right:0;
+                }
+            }
+        }
+    }
+}

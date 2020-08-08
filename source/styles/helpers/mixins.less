@@ -1,0 +1,406 @@
+.bsAbsolute100() {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+}
+
+.bsAnimation (@name, @duration: 300ms, @delay: 0, @ease: ease) {
+	-webkit-animation: @name @duration @delay @ease;
+	-moz-animation: @name @duration @delay @ease;
+	-ms-animation: @name @duration @delay @ease;
+	animation: @name @duration @delay @ease;
+}
+
+.bsAnimationIteration(@iteration) {
+	-webkit-animation-iteration-count: @iteration;
+	-moz-animation-iteration-count: @iteration;
+	-ms-animation-iteration-count: @iteration;
+	animation-iteration-count: @iteration;
+}
+
+.bsBackgroundSize (@width:auto, @height:auto) {
+	-moz-background-size: @width @height;
+	background-size: @width @height;
+}
+
+.bsBorderImage(@source, @top: 0, @right: 0, @bottom: 0, @left: 0, @repeat: round) {
+	-moz-border-image: url("/@{source}") @top @right @bottom @left @repeat;
+	-o-border-image: url("/@{source}") @top @right @bottom @left @repeat;
+	-webkit-border-image: url("/@{source}") @top @right @bottom @left fill @repeat;
+	-ms-border-image: url("/@{source}") @top @right @bottom @left fill @repeat;
+	border-image: url("/@{source}") @top @right @bottom @left fill @repeat;
+	border-style: solid;
+	border-width: ~"@{top}px @{right}px @{bottom}px @{left}px";
+}
+
+.bsBorderRadius(@radius) {
+	-moz-border-radius: @radius;
+	-o-border-radius: @radius;
+	border-radius: @radius;
+}
+
+.bsBoxSizing (@type: border-box) {
+	-moz-box-sizing: @type;
+	box-sizing: @type;
+}
+
+.bsClear() {
+	content: ' ';
+	display: block;
+	clear: both;
+	margin: 0;
+	padding: 0;
+	height: 0;
+	line-height: 0;
+	font-size: 0;
+	visibility: hidden;
+}
+
+.bsColumns (@columnCnt:2, @columnGap:20px) {
+	-moz-column-count: @columnCnt;
+	-moz-column-gap: @columnGap;
+	-webkit-column-count: @columnCnt;
+	-webkit-column-gap: @columnGap;
+	-o-column-count: @columnCnt;
+	-o-column-gap: @columnGap;
+	-ms-column-count: @columnCnt;
+	-ms-column-gap: @columnGap;
+	column-count: @columnCnt;
+	column-gap: @columnGap;
+
+}
+
+.bsColumnsNoBreak() {
+	-moz-column-break-inside: avoid;
+	-webkit-column-break-inside: avoid;
+	-o-column-break-inside: avoid;
+	-ms-column-break-inside: avoid;
+	column-break-inside: avoid;
+}
+
+.bsFilter (@args) {
+	-webkit-filter: @args;
+	filter: @args;
+}
+
+.bsFlexSpacer() {
+    flex: 1 1 auto;
+}
+
+
+.bsInlineBlock() {
+	display: -moz-inline-stack;
+	display: inline-block;
+}
+
+.bsNavReset() {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	& > li {
+		margin: 0;
+		padding: 0;
+		background: none;
+
+		&:before {
+			display: none;
+		}
+
+		a {
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+.bsNoAppearance() {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.bsNoSelect() {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-webkit-user-drag: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	user-drag: none;
+}
+
+.bsOpacity(@opacity: 1) {
+	-moz-opacity: @opacity;
+	-khtml-opacity: @opacity;
+	opacity: @opacity;
+	@opperc: @opacity * 100;
+	-ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
+	filter: ~"alpha(opacity=@{opperc})";
+}
+
+.bsPerspective (@perspective) {
+	-webkit-perspective: @perspective;
+	-moz-perspective: @perspective;
+	perspective: @perspective;
+}
+
+.bsPlaceholder(@color) {
+	&::-webkit-input-placeholder {
+		color: @color;
+	}
+	&::-moz-placeholder {
+		color: @color;
+	}
+	&:-ms-input-placeholder {
+		color: @color;
+	}
+	&:-moz-placeholder {
+		color: @color;
+	}
+}
+
+.bsRetinaBG(@bgImage, @bgWidth, @ext:png) {
+	background-image: url("/brix/images/@{bgImage}.@{ext}?cache=@{spriteCache}");
+
+	@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5) {
+		background-image: url("/brix/images/@{bgImage}@2x.@{ext}?cache=@{spriteCache}");
+		.bsBackgroundSize(@bgWidth);
+	}
+	@media (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5) {
+		background-image: url("/brix/images/@{bgImage}@3x.@{ext}?cache=@{spriteCache}");
+		.bsBackgroundSize(@bgWidth);
+	}
+}
+
+.bsRotate (@deg) {
+	-webkit-transform: rotate(@deg);
+	-moz-transform: rotate(@deg);
+	-ms-transform: rotate(@deg);
+	-o-transform: rotate(@deg);
+	transform: rotate(@deg);
+}
+
+.bsScale (@factor) {
+	-webkit-transform: scale(@factor);
+	-moz-transform: scale(@factor);
+	-ms-transform: scale(@factor);
+	-o-transform: scale(@factor);
+	transform: scale(@factor);
+}
+
+.bsShadow_box (@string) {
+	-moz-box-shadow: @string;
+	box-shadow: @string;
+}
+
+.bsShadow_double (@shadow1, @shadow2) {
+	-moz-box-shadow: @shadow1, @shadow2;
+	box-shadow: @shadow1, @shadow2;
+}
+
+.bsShadow_drop (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @color: rgba(0, 0, 0, 1)) {
+	-moz-box-shadow: @arguments;
+	box-shadow: @arguments;
+}
+
+.bsShadow_inner (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+	-moz-box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+	box-shadow: inset @x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+
+.bsShadow_text (@string: 0 1px 3px rgba(0, 0, 0, 0.25)) {
+	text-shadow: @string;
+}
+
+.bsSprite(@position) {
+	background-image: url("/brix/images/sprite.png?cache=@{spriteCache}");
+	background-repeat: no-repeat;
+	background-position: @position;
+
+	@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5) {
+		background-image: url("/brix/images/sprite@2x.png?cache=@{spriteCache}");
+		.bsBackgroundSize(@spriteWidth);
+	}
+	@media (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5) {
+		background-image: url("/brix/images/sprite@3x.png?cache=@{spriteCache}");
+		.bsBackgroundSize(@spriteWidth);
+	}
+}
+
+.bsTransform (@transform) {
+	-webkit-transform: @transform;
+	-moz-transform: @transform;
+	-ms-transform: @transform;
+	-o-transform: @transform;
+	transform: @transform;
+}
+
+.bsTransformOrigin(@x:0%, @y:0%) {
+	-webkit-transform-origin: @x @y;
+	-ms-transform-origin: @x @y;
+	transform-origin: @x @y;
+}
+
+.bsTransformStyle(@style) {
+	-webkit-transform-style: @style;
+	-moz-transform-style: @style;
+	transform-style: @style;
+}
+
+.bsTransition(@attr: all, @dur: .3s, @trans: ease, @delay: 0s) {
+	-webkit-transition: @arguments;
+	-moz-transition: @arguments;
+	-o-transition: @arguments;
+	transition: @arguments;
+}
+
+.bsTransitionCustom(@args) {
+	-webkit-transition: @args;
+	-moz-transition: @args;
+	-o-transition: @args;
+	transition: @args;
+}
+
+.bsTransitionDelay(@delay) {
+	-webkit-transition-delay: @delay !important;
+	-moz-transition-delay: @delay !important;
+	-o-transition-delay: @delay !important;
+	transition-delay: @delay !important;
+}
+
+
+/* Responsive Site Padding */
+.siteGutter(){
+	.bsBoxSizing();
+	padding-left:@siteGutterH_desktop;
+	padding-right:@siteGutterH_desktop;
+	margin-left:auto;
+	margin-right:auto;
+
+	@media (max-width: @bp_mobileLarge){
+		padding-left: @siteGutterH_mobile;
+		padding-right: @siteGutterH_mobile;
+	}
+
+	@media (min-width: @bp_desktopLarge){
+		padding-left: @siteGutterH_large;
+		padding-right: @siteGutterH_large;
+	}
+}
+
+.siteGutter_reverse(){
+	.bsBoxSizing();
+	margin-left:(@siteGutterH_desktop * -1);
+	margin-right:(@siteGutterH_desktop * -1);
+	padding-left: @siteGutterH_desktop;
+	padding-right: @siteGutterH_desktop;
+
+	@media (max-width: @bp_mobileLarge){
+		margin-left: (@siteGutterH_mobile * -1);
+		margin-right: (@siteGutterH_mobile * -1);
+		padding-left: @siteGutterH_mobile;
+		padding-right: @siteGutterH_mobile;
+	}
+
+	@media (min-width: @bp_desktopLarge){
+		margin-left: (@siteGutterH_large * -1);
+		margin-right: (@siteGutterH_large * -1);
+		padding-left: @siteGutterH_large;
+		padding-right: @siteGutterH_large;
+	}
+}
+
+/*.contentHSpace(@mode:'padding') when (@mode = 'padding'){
+	padding-left:@contentHSpace_desktop;
+	padding-right:@contentHSpace_desktop;
+
+	@media (max-width: @bp_mobileLarge){
+		padding-left: @contentHSpace_mobile;
+		padding-right: @contentHSpace_mobile;
+	}
+
+	@media (min-width: @bp_desktopLarge){
+		padding-left: @contentHSpace_large;
+		padding-right: @contentHSpace_large;
+	}
+}*/
+
+.siteGutterSpace(@mode:padding, @amt:1){
+		@{mode}-left:@siteGutterH_desktop * @amt;
+		@{mode}-right:@siteGutterH_desktop * @amt;
+
+	@media (max-width: @bp_mobileLarge){
+			@{mode}-left: @siteGutterH_mobile * @amt;
+			@{mode}-right: @siteGutterH_mobile * @amt;
+	}
+
+	@media (min-width: @bp_desktopLarge){
+			@{mode}-left: @siteGutterH_large * @amt;
+			@{mode}-right: @siteGutterH_large * @amt;
+	}
+}
+
+.sectionVSpace(@mode:padding, @amt:1){
+		@{mode}-top:@sectionVSpace_desktop * @amt;
+		@{mode}-bottom:@sectionVSpace_desktop * @amt;
+
+	@media (max-width: @bp_mobileLarge){
+			@{mode}-top: @sectionVSpace_mobile * @amt;
+			@{mode}-bottom: @sectionVSpace_mobile * @amt;
+	}
+
+	@media (min-width: @bp_desktopLarge){
+			@{mode}-top: @contentVSpace_large * @amt;
+			@{mode}-bottom: @contentVSpace_large * @amt;
+	}
+}
+
+.contentHSpace(@mode:padding, @amt:1){
+		@{mode}-left:@contentHSpace_desktop * @amt;
+		@{mode}-right:@contentHSpace_desktop * @amt;
+
+	@media (max-width: @bp_mobileLarge){
+			@{mode}-left: @contentHSpace_mobile * @amt;
+			@{mode}-right: @contentHSpace_mobile * @amt;
+	}
+
+	@media (min-width: @bp_desktopLarge){
+			@{mode}-left: @contentHSpace_large * @amt;
+			@{mode}-right: @contentHSpace_large * @amt;
+	}
+}
+
+.contentVSpace(@mode:padding, @amt:1){
+		@{mode}-top:@contentVSpace_desktop * @amt;
+		@{mode}-bottom:@contentVSpace_desktop * @amt;
+
+	@media (max-width: @bp_mobileLarge){
+			@{mode}-top: @contentVSpace_mobile * @amt;
+			@{mode}-bottom: @contentVSpace_mobile * @amt;
+	}
+
+	@media (min-width: @bp_desktopLarge){
+			@{mode}-top: @contentVSpace_large * @amt;
+			@{mode}-bottom: @contentVSpace_large * @amt;
+	}
+}
+
+.bsSpace_bp(@var, @val, @amt:1) {
+	@finalVal: "@{val}_desktop";
+	@{var}: @@finalVal * @amt;
+
+	@media (max-width: @bp_mobileLarge){
+		@finalVal: "@{val}_mobile";
+		@{var}: @@finalVal * @amt;
+	}
+
+	@media (min-width: @bp_desktopLarge){
+		@finalVal: "@{val}_large";
+		@{var}: @@finalVal * @amt;
+	}
+}
