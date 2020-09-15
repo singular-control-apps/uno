@@ -38,7 +38,7 @@ function createFillInForm(singularApp, composition, dom, controlNode) {
  *                    node.
  */
 function doesCompositionHaveAGlobalControlNode(composition) {
-  return !!composition.getControlNode().payload
+  return !!composition.getControlNode() && composition.getControlNode().payload
     ? !!composition.getControlNode().payload
     : false;
 }
