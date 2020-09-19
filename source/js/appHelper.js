@@ -172,7 +172,7 @@ function setFirstTabToActive(tabIdNameList) {
 
 function setIframeSrcToOutput(iframeId, output) {
   const outputIframe = document.getElementById(iframeId);
-  outputIframe.src = output.getPreviewUrl();
+  outputIframe.src = `${output.getPreviewUrl()}?bgcolor=black`;
 }
 
 function setTabClass(tabIdName, className) {
