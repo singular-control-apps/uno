@@ -613,6 +613,7 @@ html {
   display: flex;
   align-items: stretch;
   align-content: stretch;
+  position: relative;
 }
 .page .page-column {
   display: flex;
@@ -755,6 +756,7 @@ header .header-right > div.header-help-config > *:last-child {
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .panel-header {
   -moz-box-sizing: border-box;
@@ -1733,4 +1735,78 @@ header .header-right > div.header-help-config > *:last-child {
   right: 0;
   bottom: 0;
 }
+
+.guide-popup--overlay {
+  background: white;
+  border-radius: 10px;
+  padding: 15px 35px 15px 15px;
+  position: absolute;
+  /*left: 4px; 122px*/
+  top: 47px;
+  z-index: 999;
+}
+
+.guide-popup--overlay:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 9%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-bottom-color: #ffffff;
+  border-top: 0;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+
+.guide-popup--output {
+  background: white;
+  border-radius: 10px;
+  padding: 15px 35px 15px 15px;
+  position: absolute;
+  right: 20px;
+  top: 11px;
+  z-index: 999;
+}
+
+.guide-popup--output:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 28%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-bottom-color: #ffffff;
+  border-top: 0;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+
+.guide-popup-button {
+  color: dodgerblue;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  cursor: pointer;
+  font-size: smaller;
+}
+
+.guide-popup-header {
+  color: dodgerblue;
+  font-weight: 800;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.guide-popup-text {
+  font-size: small;
+}
+
+.guide-popup-text p{
+  font-size: small;
+  margin: 5px;
+}
+
 /*# sourceMappingURL=index.css.map */

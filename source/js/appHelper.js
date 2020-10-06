@@ -1,7 +1,100 @@
+function createGuidePopups(composition) {
+  const isGlobalControlNode = doesCompositionHaveAGlobalControlNode(composition);
+  createOverlayGuidePopup(isGlobalControlNode);
+  createOutputGuidePopup();
+}
+
+function createOverlayGuidePopup(isGlobalControlNode) {
+  const popup = document.createElement('div');
+  popup.setAttribute('id', 'guide-popup--overlay');
+  popup.classList.add('guide-popup--overlay');
+  if (isGlobalControlNode) {
+    popup.style.left = '122px';
+  }
+  else {
+    popup.style.left = '4px';
+  }
+
+  const exitButton = document.createElement('span');
+  exitButton.classList.add('guide-popup-button');
+  exitButton.innerHTML = '&#10006;';
+  exitButton.addEventListener('click', function () {
+    const mainPage = document.getElementById('fill-in-form');
+    const popup = document.getElementById('guide-popup--overlay');
+    mainPage.removeChild(popup);
+  });
+
+  const header = document.createElement('div');
+  header.classList.add('guide-popup-header');
+  header.innerText = 'Plays Overlays On/Off Air';
+
+  const text = document.createElement('div');
+  text.classList.add('guide-popup-text');
+  text.innerText = 'Click the play and pause buttons';
+
+  popup.appendChild(exitButton);
+  popup.appendChild(header);
+  popup.appendChild(text);
+
+  const fillinForm = document.getElementById('fill-in-form');
+  fillinForm.appendChild(popup);
+}
+
+function createOutputGuidePopup() {
+  const popup = document.createElement('div');
+  popup.setAttribute('id', 'guide-popup--output');
+  popup.classList.add('guide-popup--output');
+
+  const exitButton = document.createElement('span');
+  exitButton.classList.add('guide-popup-button');
+  exitButton.innerHTML = '&#10006;';
+  exitButton.addEventListener('click', function () {
+    const mainPage = document.getElementById('main-page');
+    const popup = document.getElementById('guide-popup--output');
+    mainPage.removeChild(popup);
+  });
+
+  const header = document.createElement('div');
+  header.classList.add('guide-popup-header');
+  header.innerText = 'Output URL';
+
+  const text = document.createElement('div');
+  text.classList.add('guide-popup-text');
+  const paragraph1 = document.createElement('p');
+  paragraph1.innerText = 'Copy the output URL.';
+
+  const paragraph2 = document.createElement('p');
+
+  const paragraph2a = document.createElement('span');
+  paragraph2a.innerText = 'Click ';
+
+  const aTag = document.createElement('a');
+  aTag.setAttribute('href', 'https://singularlive.zendesk.com/hc/en-us/sections/360001827592-STREAMING-PRODUCTION-SOFTWARE');
+  aTag.setAttribute('target', '_blank');
+  aTag.innerText = 'here';
+
+  const paragraph2b = document.createElement('span');
+  paragraph2b.innerText = ' for a tutorial.';
+
+  paragraph2.appendChild(paragraph2a);
+  paragraph2.appendChild(aTag);
+  paragraph2.appendChild(paragraph2b);
+
+  text.appendChild(paragraph1);
+  text.appendChild(paragraph2);
+
+  popup.appendChild(exitButton);
+  popup.appendChild(header);
+  popup.appendChild(text);
+
+  const mainPage = document.getElementById('main-page');
+  mainPage.appendChild(popup);
+}
+
 function createGlobalTab(composition, tabIdNameList) {
   if (doesCompositionHaveAGlobalControlNode(composition)) {
     const globalTab = document.createElement('span');
-    globalTab.innerText = 'Global';
+    globalTab.innerText = 'Settings';
     globalTab.setAttribute('id', 'tab--global');
     globalTab.addEventListener('click', function () {
       setTabClass('tab--global', 'tab--active');
@@ -16,15 +109,24 @@ function createGlobalTab(composition, tabIdNameList) {
   }
 }
 
-function createSubcompTabs(subcompositionList, tabIdNameList) {
+function createSubcompTabs(subcompositionList, tabIdNameList, isFirstLoad) {
   const tabs = document.getElementById('tabs');
 
+  let setFirstTabToPlay = false;
   for (const subcomp of subcompositionList) {
     const tabIdName = createIdName('tab', subcomp.name);
     tabIdNameList.push(tabIdName);
 
-    const tab = createSubcompTab(subcomp, tabIdName);
-    tabs.appendChild(tab);
+    if (isFirstLoad && !setFirstTabToPlay) {
+      const tab = createSubcompTab(subcomp, tabIdName, true);
+      tabs.appendChild(tab);
+      setFirstTabToPlay = true;
+    }
+    else {
+      const tab = createSubcompTab(subcomp, tabIdName, false);
+      tabs.appendChild(tab);
+    }
+
   }
 }
 
@@ -34,17 +136,22 @@ function createIdName(prefix, subcompName) {
   return `${prefix}--${subcompName.toLowerCase().replace(/\s+/g, '-')}`;
 }
 
-function createSubcompTab(subcomp, tabIdName) {
+function createSubcompTab(subcomp, tabIdName, setToIn) {
   const tab = document.createElement('span');
 
   tab.innerText = subcomp.name;
   tab.setAttribute('id', tabIdName);
 
-  if (subcomp.getState().toUpperCase().includes('IN')) {
+  if (setToIn) {
     tab.setAttribute('class', 'tab--playing');
   }
-  else if (subcomp.getState().toUpperCase().includes('OUT')) {
-    tab.setAttribute('class', 'tab--stopped');
+  else {
+    if (subcomp.getState().toUpperCase().includes('IN')) {
+      tab.setAttribute('class', 'tab--playing');
+    }
+    else if (subcomp.getState().toUpperCase().includes('OUT')) {
+      tab.setAttribute('class', 'tab--stopped');
+    }
   }
 
   tab.addEventListener('click', function() {
@@ -136,6 +243,12 @@ function createStopSvgPath() {
   const stopSvgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   stopSvgPath.setAttribute('d', 'M6.75,6h10.5a.76.76,0,0,1,.75.75v10.5a.76.76,0,0,1-.75.75H6.75A.76.76,0,0,1,6,17.25V6.75A.76.76,0,0,1,6.75,6Z');
   return stopSvgPath;
+}
+
+function playToInFirstSubcomp(composition, subcompositionList) {
+  if (subcompositionList && subcompositionList.length > 0) {
+    playToSubcompositionById(subcompositionList[0].id, composition, 'IN');
+  }
 }
 
 function renderInitialFillInForm(fillInFormId, singularApp, composition, subcompositionList) {
