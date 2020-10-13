@@ -1,6 +1,7 @@
 function createGuidePopups(composition) {
   const isGlobalControlNode = doesCompositionHaveAGlobalControlNode(composition);
   createOverlayGuidePopup(isGlobalControlNode);
+  createBookmarkGuidePopup();
   createOutputGuidePopup();
 }
 
@@ -26,17 +27,47 @@ function createOverlayGuidePopup(isGlobalControlNode) {
 
   const header = document.createElement('div');
   header.classList.add('guide-popup-header');
-  header.innerText = 'Plays Overlays On/Off Air';
+  header.innerText = 'Click Red Button to take Overlays On/Off';
 
   const text = document.createElement('div');
   text.classList.add('guide-popup-text');
-  text.innerText = 'Click the play and pause buttons';
+  text.innerText = 'Control and edit Overlays below';
 
   popup.appendChild(exitButton);
   popup.appendChild(header);
   popup.appendChild(text);
 
   const fillinForm = document.getElementById('fill-in-form');
+  fillinForm.appendChild(popup);
+}
+
+function createBookmarkGuidePopup() {
+  const popup = document.createElement('div');
+  popup.setAttribute('id', 'guide-popup--bookmark');
+  popup.classList.add('guide-popup--bookmark');
+
+  const exitButton = document.createElement('span');
+  exitButton.classList.add('guide-popup-button');
+  exitButton.innerHTML = '&#10006;';
+  exitButton.addEventListener('click', function () {
+    const mainPage = document.getElementById('main-page');
+    const popup = document.getElementById('guide-popup--bookmark');
+    mainPage.removeChild(popup);
+  });
+
+  const header = document.createElement('div');
+  header.classList.add('guide-popup-header');
+  header.innerText = 'Bookmark this Webpage';
+
+  const text = document.createElement('div');
+  text.classList.add('guide-popup-text');
+  text.innerText = 'Save this Control App for later';
+
+  popup.appendChild(exitButton);
+  popup.appendChild(header);
+  popup.appendChild(text);
+
+  const fillinForm = document.getElementById('main-page');
   fillinForm.appendChild(popup);
 }
 
@@ -56,32 +87,33 @@ function createOutputGuidePopup() {
 
   const header = document.createElement('div');
   header.classList.add('guide-popup-header');
-  header.innerText = 'Output URL';
+  header.innerText = 'Use Output URL in Production Software';
 
   const text = document.createElement('div');
   text.classList.add('guide-popup-text');
+
   const paragraph1 = document.createElement('p');
-  paragraph1.innerText = 'Copy the output URL.';
+  paragraph1.innerText = 'Paste it as a browser source (in OBS, vMix, etc.)';
 
-  const paragraph2 = document.createElement('p');
+  const paragraph3 = document.createElement('p');
 
-  const paragraph2a = document.createElement('span');
-  paragraph2a.innerText = 'Click ';
+  const paragraph3a = document.createElement('span');
+  paragraph3a.innerText = 'Click ';
 
   const aTag = document.createElement('a');
-  aTag.setAttribute('href', 'https://singularlive.zendesk.com/hc/en-us/sections/360001827592-STREAMING-PRODUCTION-SOFTWARE');
+  aTag.setAttribute('href', 'https://singularlive.zendesk.com/hc/en-us/articles/360000551532-Outputting-Overview#h_01EENMZ1FBSCRTFK2NGCDZ4FKM');
   aTag.setAttribute('target', '_blank');
   aTag.innerText = 'here';
 
-  const paragraph2b = document.createElement('span');
-  paragraph2b.innerText = ' for a tutorial.';
+  const paragraph3b = document.createElement('span');
+  paragraph3b.innerText = ' to learn more';
 
-  paragraph2.appendChild(paragraph2a);
-  paragraph2.appendChild(aTag);
-  paragraph2.appendChild(paragraph2b);
+  paragraph3.appendChild(paragraph3a);
+  paragraph3.appendChild(aTag);
+  paragraph3.appendChild(paragraph3b);
 
   text.appendChild(paragraph1);
-  text.appendChild(paragraph2);
+  text.appendChild(paragraph3);
 
   popup.appendChild(exitButton);
   popup.appendChild(header);

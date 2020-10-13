@@ -613,7 +613,6 @@ html {
   display: flex;
   align-items: stretch;
   align-content: stretch;
-  position: relative;
 }
 .page .page-column {
   display: flex;
@@ -756,7 +755,6 @@ header .header-right > div.header-help-config > *:last-child {
   height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 .panel-header {
   -moz-box-sizing: border-box;
@@ -775,7 +773,7 @@ header .header-right > div.header-help-config > *:last-child {
 }
 .panel-tabs {
   position: relative;
-  padding: 0 36px 0 var(--sl-panel-padding);
+  padding: 0 var(--sl-panel-padding);
   background-color: var(--sl-panel-header-bg);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -793,7 +791,8 @@ header .header-right > div.header-help-config > *:last-child {
 .panel-tabs-list > div {
   position: relative;
   white-space: nowrap;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   width: 100%;
 }
 .panel-tabs-list > div > span {
@@ -808,6 +807,7 @@ header .header-right > div.header-help-config > *:last-child {
   cursor: pointer;
   margin-left: 15px;
   line-height: 20px;
+  outline: none;
 }
 .panel-tabs-list > div > span svg {
   position: absolute;
@@ -882,16 +882,24 @@ header .header-right > div.header-help-config > *:last-child {
 .panel-tabs-list > div > span:first-child {
   margin-left: 0;
 }
-.panel-tabs-list > div:after {
+.panel-tabs-list:before,
+.panel-tabs-list:after {
   content: '';
   display: block;
   position: absolute;
   background: transparent linear-gradient(90deg, rgba(34, 34, 34, 0) 0%, #222222 100%) 0% 0% no-repeat padding-box;
-  height: 100%;
+  height: calc(100% + 1px);
   width: 60px;
-  right: 0;
+  right: var(--sl-panel-padding);
   top: 0;
   pointer-events: none;
+  z-index: 20;
+}
+.panel-tabs-list:before {
+  background: transparent linear-gradient(-90deg, rgba(34, 34, 34, 0) 0%, #222222 100%) 0% 0% no-repeat padding-box;
+  right: auto;
+  width: 10px;
+  left: var(--sl-panel-padding);
 }
 .panel-tabs-list .button-previous svg {
   transform: rotate(180deg);
@@ -941,6 +949,7 @@ header .header-right > div.header-help-config > *:last-child {
   box-sizing: border-box;
   border-top: solid var(--sl-panel-margin-small) var(--sl-page-bg);
   padding: var(--sl-panel-padding);
+  overflow-y: auto;
   scrollbar-width: none;
 }
 .panel-body::-webkit-scrollbar {
@@ -1736,77 +1745,31 @@ header .header-right > div.header-help-config > *:last-child {
   bottom: 0;
 }
 
-.guide-popup--overlay {
-  background: white;
+::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  border-radius: 0;
+  background-color: #373838;
+}
+
+::-webkit-scrollbar
+{
+  width: 8px;
+  background-color: #373838;
+}
+
+::-webkit-scrollbar-thumb
+{
   border-radius: 10px;
-  padding: 15px 35px 15px 15px;
-  position: absolute;
-  /*left: 4px; 122px*/
-  top: 47px;
-  z-index: 999;
+  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.8);
+  background-color: #1f1e1f;
 }
 
-.guide-popup--overlay:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 9%;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-bottom-color: #ffffff;
-  border-top: 0;
-  margin-left: -10px;
-  margin-top: -10px;
+::-webkit-scrollbar:horizontal {
+  height: 8px;
 }
 
-.guide-popup--output {
-  background: white;
-  border-radius: 10px;
-  padding: 15px 35px 15px 15px;
-  position: absolute;
-  right: 20px;
-  top: 11px;
-  z-index: 999;
+::-webkit-scrollbar-corner {
+  background-color: #373838;
 }
-
-.guide-popup--output:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 28%;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-bottom-color: #ffffff;
-  border-top: 0;
-  margin-left: -10px;
-  margin-top: -10px;
-}
-
-.guide-popup-button {
-  color: dodgerblue;
-  position: absolute;
-  right: 10px;
-  top: 5px;
-  cursor: pointer;
-  font-size: smaller;
-}
-
-.guide-popup-header {
-  color: dodgerblue;
-  font-weight: 800;
-  margin-bottom: 5px;
-  font-size: 16px;
-}
-
-.guide-popup-text {
-  font-size: small;
-}
-
-.guide-popup-text p{
-  font-size: small;
-  margin: 5px;
-}
-
 /*# sourceMappingURL=index.css.map */
