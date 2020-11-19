@@ -34,31 +34,33 @@ function initializeSingularData(app) {
 
 function initializeGUI(singularApp) {
   let init = function() {
+    // confirm closing of application
+    window.addEventListener('beforeunload', event => {
+      event.preventDefault();
+      event.returnValue = '';  // Chrome requires returnValue to be set.
+    });
+
     // set output iframe src to the singular app's output preview url
     setIframeSrcToOutput('iframe', output);
 
     // render fill-in form to edit subcomposition's payload
     renderInitialFillInForm('fillin-form', singularApp, composition, subcompositionList);
 
+    const appId = singularApp.getAppInstanceInfo().id;
+
     // if first time loaded
     singularApp.storage.get('isFirstLoad', value => {
       console.log(`Storage 'isFirstLoad' is: ${value}`);
       if (!value) {
         singularApp.storage.set('isFirstLoad', true);
-        createGuidePopups(composition);
         playToInFirstSubcomp(composition, subcompositionList);
       }
 
-      // create settings tab and subcomposition tabs
+      // create popups, settings tab and subcomposition tabs
+      createGuidePopups(composition);
       createGlobalTab(composition, tabIdNameList);
       createSubcompTabs(subcompositionList, tabIdNameList, !value);
       setFirstTabToActive(tabIdNameList);
-    });
-
-    // confirm closing of application
-    window.addEventListener('beforeunload', event => {
-      event.preventDefault();
-      event.returnValue = '';  // Chrome requires returnValue to be set.
     });
   };
 
