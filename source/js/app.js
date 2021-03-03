@@ -57,7 +57,7 @@ function initializeGUI(singularApp) {
       }
 
       // create popups, settings tab and subcomposition tabs
-      createGuidePopups(composition);
+      setTimeout(function () { createGuidePopups(composition); }, 4000);
       createGlobalTab(composition, tabIdNameList);
       createSubcompTabs(subcompositionList, tabIdNameList, !value);
       setFirstTabToActive(tabIdNameList);
